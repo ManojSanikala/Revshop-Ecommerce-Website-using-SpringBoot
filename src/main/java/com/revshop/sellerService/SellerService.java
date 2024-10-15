@@ -1,4 +1,4 @@
-package com.revshop.sellerService;
+package com.revshop.SellerService;
 
 import com.revshop.model.Seller;
 

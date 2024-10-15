@@ -1,4 +1,4 @@
-package com.revshop.sellerService;
+package com.revshop.SellerService;
 
 import java.time.LocalDate;
 

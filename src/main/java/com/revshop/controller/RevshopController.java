@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.revshop.BuyerService.BuyerServiceImpl;
+import com.revshop.SellerService.SellerServiceImpl;
 import com.revshop.model.Buyer;
 import com.revshop.model.Seller;
-import com.revshop.sellerService.SellerServiceImpl;
-import com.revshop.service.BuyerServiceImpl;
 
 @Controller
 public class RevshopController 
