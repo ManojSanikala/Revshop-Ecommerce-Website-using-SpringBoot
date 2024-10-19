@@ -7,5 +7,6 @@ import com.revshop.model.Buyer;
 
 @Repository
 public interface BuyerRepo extends JpaRepository<Buyer, Integer>{
+	Buyer findByEmailAndPassword(String email, String password);
 
 }

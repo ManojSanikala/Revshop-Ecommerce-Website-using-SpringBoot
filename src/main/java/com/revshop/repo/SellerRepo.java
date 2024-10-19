@@ -8,5 +8,6 @@ import com.revshop.model.Seller;
 
 @Repository
 public interface SellerRepo extends JpaRepository<Seller, Integer>{
+	Seller findByEmailAndPassword(String email, String password);
 
 }

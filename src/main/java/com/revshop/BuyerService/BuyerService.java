@@ -1,11 +1,14 @@
 package com.revshop.BuyerService;
 
+import java.util.Optional;
+
 import com.revshop.model.Buyer;
-import com.revshop.model.Seller;
 
 public interface BuyerService {
 	
 	public Buyer register(Buyer buyer);
+	
+	public Buyer login(String email, String password);
 	
 	
 	

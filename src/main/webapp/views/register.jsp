@@ -36,7 +36,7 @@
 </style>
 
 
-<form action="/success" method="post">
+<form action="/save" method="post">
   <input type="text" name="name" required placeholder="Full Name">
   <input type="email" name="email" required placeholder="Email">
   <input type="text" name="mobile" required placeholder="Mobile Number">

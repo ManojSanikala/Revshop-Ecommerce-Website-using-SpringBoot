@@ -34,7 +34,7 @@
     background-color: #218838;
   }
 </style>
-<form action="Login" method="post">
+<form action="/loginpage" method="post">
   <center>
     <h2>Login</h2>
   </center>

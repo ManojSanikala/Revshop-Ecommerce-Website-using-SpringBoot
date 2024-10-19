@@ -21,5 +21,8 @@ public class BuyerServiceImpl implements BuyerService {
 		return registerData;
 	}
 
-	
+	@Override
+	public Buyer login(String email, String password) {
+	    return repo.findByEmailAndPassword(email, password);
+	}
 }
