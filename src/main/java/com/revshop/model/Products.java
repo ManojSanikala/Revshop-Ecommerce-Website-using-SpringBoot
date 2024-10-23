@@ -1,5 +1,7 @@
 package com.revshop.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

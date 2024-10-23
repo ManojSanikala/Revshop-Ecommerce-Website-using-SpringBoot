@@ -1,32 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <% request.setAttribute("pageName", "adminHome" ); %>
-      <%@page isELIgnored="false" %>
+    <%@ page import="com.revshop.model.Seller" %>
+
+      <% request.setAttribute("pageName", "sellerDashboard" ); %>
         <!DOCTYPE html>
-        <html>
+        <html lang="en">
 
         <head>
           <meta charset="UTF-8">
-          <title>Seller Home</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Seller Dashboard</title>
+          <!-- Bootstrap CSS -->
           <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
             integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-
-          <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"></script>
-          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-            crossorigin="anonymous"></script>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
-            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
-            crossorigin="anonymous"></script>
-
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
             integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
             crossorigin="anonymous" referrerpolicy="no-referrer" />
+
           <style>
+            body {
+              background-color: #d7d9d7;
+              /* Aluminium color */
+              display: flex;
+              flex-direction: column;
+              min-height: 100vh;
+              /* Ensure footer is at the bottom */
+            }
+
+            .navbar-custom {
+              background-color: #f57c20;
+              /* Tangerine color */
+              height: 60px;
+              /* Fixed height for navbar */
+            }
+
+            .footer {
+              background-color: #343a40;
+              /* Dark background for the footer */
+              color: white;
+              text-align: center;
+              padding: 10px 0;
+              position: fixed;
+              /* Fixed positioning */
+              bottom: 0;
+              /* Stick to bottom */
+              width: 100%;
+              /* Full width */
+              height: 50px;
+              /* Fixed height for footer */
+            }
+
             .container {
-              margin-top: 50px;
+              margin-top: 10px;
+              /* Adjust to account for the navbar */
+              flex: 1;
+              /* Allow container to grow and fill available space */
             }
 
             .card {
@@ -36,8 +64,8 @@
               box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
               transition: transform 0.3s, box-shadow 0.3s;
               cursor: pointer;
-              background-color: #f8f9fa;
-              margin: 10px;
+              background-color: #fff;
+              margin: 15px;
             }
 
             .card:hover {
@@ -64,19 +92,73 @@
             .card-body {
               padding: 30px 20px;
             }
+
+            .row {
+              justify-content: center;
+            }
+
+            h1 {
+              color: #007bff;
+            }
+
+            .text-success,
+            .text-danger {
+              margin-bottom: 10px;
+              /* Margin to separate from navbar */
+            }
+
+            .welcome-message {
+              margin-top: 10px;
+              /* Space between navbar and messages */
+            }
           </style>
         </head>
 
         <body>
 
+          <!-- Redirect to login if user not logged in -->
+          <c:if test="${empty sessionScope.loggedInUser}">
+            <c:redirect url="/login" />
+          </c:if>
 
+          <!-- Navbar -->
+          <nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+            <a class="navbar-brand" href="#">
+              RevShop
+            </a>
+            <div class="collapse navbar-collapse">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/logout" onclick="confirmLogout()">Logout</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
 
+          <!-- Welcome Message -->
+          <div class="container welcome-message">
+            <c:if test="${not empty sessionScope.welcomeMessage}">
+              <h4 class="text-center text-success">${sessionScope.welcomeMessage}</h4>
+              <c:remove var="welcomeMessage" scope="session" />
+            </c:if>
+
+            <!-- Error Message -->
+            <c:if test="${not empty sessionScope.failedMsg}">
+              <h4 class="text-center text-danger">${sessionScope.failedMsg}</h4>
+              <c:remove var="failedMsg" scope="session" />
+            </c:if>
+
+            <!-- Success Message -->
+            <c:if test="${not empty sessionScope.succMsg}">
+              <h4 class="text-center text-success">${sessionScope.succMsg}</h4>
+              <c:remove var="succMsg" scope="session" />
+            </c:if>
+          </div>
 
           <div class="container text-center">
-            <h1 class="mb-5">Hello Manoj</h1>
             <div class="row">
               <!-- Add Product Card -->
-              <div class="col-md-3">
+              <div class="col-lg-3 col-md-6 col-sm-12">
                 <a href="/add">
                   <div class="card">
                     <div class="card-body">
@@ -88,8 +170,8 @@
               </div>
 
               <!-- All Products Card -->
-              <div class="col-md-3">
-                <a href="all_products.jsp">
+              <div class="col-lg-3 col-md-6 col-sm-12">
+                <a href="/products">
                   <div class="card">
                     <div class="card-body">
                       <i class="fa fa-list"></i>
@@ -99,9 +181,9 @@
                 </a>
               </div>
 
-              <!-- Order Card -->
-              <div class="col-md-3">
-                <a href="orders.jsp">
+              <!-- All Orders Card -->
+              <div class="col-lg-3 col-md-6 col-sm-12">
+                <a href="/orders.jsp">
                   <div class="card">
                     <div class="card-body">
                       <i class="fa fa-shopping-cart"></i>
@@ -112,8 +194,8 @@
               </div>
 
               <!-- View All Users Card -->
-              <div class="col-md-3">
-                <a href="./view_all_users.jsp">
+              <div class="col-lg-3 col-md-6 col-sm-12">
+                <a href="/buyers">
                   <div class="card">
                     <div class="card-body">
                       <i class="fa fa-users"></i>
@@ -124,29 +206,43 @@
               </div>
 
               <!-- Logout Card -->
-              <div class="col-md-3">
-                <div class="card" onclick="return confirmLogout();">
+              <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="card" onclick="confirmLogout()">
                   <div class="card-body">
                     <i class="fa fa-sign-out-alt"></i>
                     <h5 class="card-title mt-3">Logout</h5>
                   </div>
                 </div>
-                <form id="logoutForm" action="/logout" method="post" style="display:none;">
+                <form id="logoutForm" action="/logout" method="get" style="display:none;">
                   <input type="hidden" name="logout" value="true">
                 </form>
               </div>
             </div>
           </div>
 
+          <!-- Footer -->
+          <footer class="footer">
+            <p>© 2024 RevShop. All Rights Reserved.</p>
+          </footer>
+
+          <!-- Bootstrap JS (including Popper.js) -->
+          <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+            crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
+            integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
+            crossorigin="anonymous"></script>
+
           <script>
             function confirmLogout() {
               if (confirm("Are you sure you want to log out?")) {
-                document.getElementById("logoutForm").submit();
+                document.getElementById('logoutForm').submit();
               }
-              return false;
             }
           </script>
-
         </body>
 
         </html>

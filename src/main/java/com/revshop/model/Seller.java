@@ -1,6 +1,7 @@
 package com.revshop.model;
 
 import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +13,7 @@ public class Seller
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int seller_id;
+	private int id;
 	private String name;
 	private String email;
 	private long mobile;
@@ -27,10 +28,10 @@ public class Seller
 		super();
 	}
 	
-	public Seller(int seller_id, String name, String email, long mobile, String password, String confirm_password,
+	public Seller(int id, String name, String email, long mobile, String password, String confirm_password,
 			String role) {
 		super();
-		this.seller_id = seller_id;
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.mobile = mobile;
@@ -39,12 +40,12 @@ public class Seller
 		this.role = role;
 	}
 	
-	public int getBuyer_id() {
-		return seller_id;
+	public int getId() {
+		return id;
 	}
 	
-	public void setBuyer_id(int buyer_id) {
-		this.seller_id = buyer_id;
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getName() {
@@ -105,7 +106,7 @@ public class Seller
 	
 	@Override
 	public String toString() {
-		return "Seller [seller_id=" + seller_id + ", name=" + name + ", email=" + email + ", mobile=" + mobile
+		return "Seller [id=" + id + ", name=" + name + ", email=" + email + ", mobile=" + mobile
 				+ ", password=" + password + ", confirm_password=" + confirm_password + ", role=" + role + ", created_date=" + created_date + "]";
 	}
 }

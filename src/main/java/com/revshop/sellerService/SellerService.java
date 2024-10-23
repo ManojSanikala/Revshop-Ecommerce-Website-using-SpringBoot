@@ -1,6 +1,8 @@
 package com.revshop.SellerService;
 
-import com.revshop.model.Products;
+import java.util.List;
+
+import com.revshop.model.Buyer;
 import com.revshop.model.Seller;
 
 public interface SellerService{
@@ -9,11 +11,13 @@ public interface SellerService{
 	
 	public Seller login(String email, String password);
 	
-	//public Products addProduct(String product_name, String product_image, String Product_description, String product_stock, String product_category, Double product_price, String product_company);
+	public Seller findById(int sellerId);
 	
-	public Products addproducts(Products product);
+	public List<Buyer> getAllBuyers();
+	
+	public Seller editSeller(int seller_id);
+	
 
-	Seller findById(int sellerId);
 
-	Products getProductById(int id);
+	
 }
